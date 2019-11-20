@@ -1,0 +1,46 @@
+{
+  "name": "final-mockAPI",
+  "version": "1.0.0",
+  "description": "Mock/Test API for testing during the development of GraphQuill",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "jest --verbose",
+    "dev": "nodemon server/index.js",
+    "resetPsql": "node database/psql/resetPSQL.js && node database/psql/setupTablesPSQL.js && node database/psql/seedCustomers.js && node database/psql/seedProducts.js && node database/psql/seedCustomerOrders.js && node database/psql/seedOrderProducts.js && node database/psql/seedWarehouses.js && node database/psql/seedWarehouseInventory.js",
+    "resetMongo": "node database/mongo/resetMongoDB.js && node database/mongo/seedMongoDB.js",
+    "resetDbs": "npm run resetPsql && npm run resetMongo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GraphQuill/Mock-GraphQL-API.git"
+  },
+  "keywords": [],
+  "author": "GraphQuill.1.0 Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GraphQuill/Mock-GraphQL-API/issues"
+  },
+  "homepage": "https://github.com/GraphQuill/Mock-GraphQL-API#readme",
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.4"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "faker": "^4.1.0",
+    "graphql": "^14.5.8",
+    "graphql-tools": "^4.0.6",
+    "mongoose": "^5.7.7",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3"
+  }
+}

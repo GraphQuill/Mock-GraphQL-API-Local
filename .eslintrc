@@ -1,0 +1,16 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    // "consistent-return": "off",
+    "no-console": "off",
+    "react/prop-types": "off",
+    // "linebreak-style": 0 // windows CRLF LF thing?
+    "func-names": "off",
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }] // allows for i++ or i-- in third arg of for loop
+  },
+  "env": {
+    "node": true,
+    "es6": true,
+    "jest": true
+  }
+}
