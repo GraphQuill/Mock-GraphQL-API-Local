@@ -16,7 +16,13 @@ Clone this repo:
 git clone https://github.com/GraphQuill/Mock-GraphQL-API.git
 ```
 
-Within the cloned folder, run the resetDbs script to seed the database (this script can also be used to reset the database to a "default"/predictable starting point, which is exactly what it was used for during GraphQuill's development):
+Within the cloned folder, install all npm packages:
+
+```javascript
+npm install
+```
+
+After installing npm packages, run the resetDbs script to seed the database (this script can also be used to reset the database to a "default"/predictable starting point, which is exactly what it was used for during GraphQuill's development):
 
 ```javascript
 npm run resetDbs
@@ -26,32 +32,21 @@ Your GraphQL API has been setup now and seeded with data from [faker](https://ww
 
 ---
 ## The Schema of this API
+
+This API was built as the backend of an eCommerce store. Below is the GraphQL schema that describes GraphQL types, available queries and mutations.
+
 ```graphql
 AVAILABLE QUERIES:
-address (
-  id: Int!
-  ): Address!
+address (id: Int!): Address!
 addresses: [Address]!
-customer (
-  id: Int!
-  ): Customer!
+customer (id: Int!): Customer!
 customers: [Customer]!
-cart (
-  customerId: Int!
-  ): Cart!
-order (
-  orderId: Int!
-  ): Order!
-customerOrders (
-  customerId: Int!
-  ): [Order]!
-product (
-  productId: Int!
-  ): Product!
+cart (customerId: Int!): Cart!
+order (orderId: Int!): Order!
+customerOrders (customerId: Int!): [Order]!
+product (productId: Int!): Product!
 products: [Product]!
-warehouse (
-  warehouseId: Int!
-  ): Warehouse!
+warehouse (warehouseId: Int!): Warehouse!
 warehouses: [Warehouse]!
 
 AVAILABLE MUTATIONS:
@@ -76,9 +71,7 @@ updateCustomer (
   email: String, 
   phoneNumber: String
   ): Customer!
-deleteCustomer (
-  id: Int!
-  ): Int!
+deleteCustomer (id: Int!): Int!
 createOrUpdateCart (
   customerId: Int!, 
   newItem: String!
@@ -87,9 +80,7 @@ removeItemsFromCart (
   customerId: Int!, 
   itemsToRemove: String!
   ): Cart!
-deleteCart (
-  customerId: Int!
-  ): Cart!
+deleteCart (customerId: Int!): Cart!
 addOrder (
   customerId: Int!, 
   products: OrderProduct!
@@ -107,9 +98,7 @@ updateProduct (
   price: Float, 
   weight: Float
   ): Product!
-deleteProduct (
-  productId: Int!
-  ): Product!
+deleteProduct (productId: Int!): Product!
 addWarehouse (
   name: String!, 
   addressId: Int!
@@ -119,9 +108,7 @@ updateWarehouse (
   name: String, 
   id: Int
   ): Warehouse!
-deleteWarehouse (
-  warehouseId: Int!
-  ): Warehouse!
+deleteWarehouse (warehouseId: Int!): Warehouse!
 
 
 TYPES: 
