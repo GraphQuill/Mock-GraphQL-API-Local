@@ -7,6 +7,8 @@ This GraphQL API was created and used for testing during the development of [Gra
 
 In an effort to allow other engineers to test out GraphQuill on a mock GraphQL API, we've open-sourced this repo. This project uses local installations of **PostgreSQL's Core Distribution** and **MongoDB Community Edition**. If you need to install them, refer to [How to Install PostgresQL and MongoDb](#to-install-and-setup-postgresql-and-mongodb)
 
+There is also a dockerized version here for users who prefer to use Docker, [repo here](https://github.com/GraphQuill/Mock-GraphQL-API-Docker)
+
 ---
 
 ## Using this GraphQL API
