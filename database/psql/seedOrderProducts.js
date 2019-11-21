@@ -8,33 +8,23 @@ async function seedCustomerOrders() {
     Math.ceil(Math.random() * 25),
   ];
 
-  // console.log('full input array is', values);
-
-  await Pool.query(`
-    INSERT INTO "orderProducts"("productId", "productQty", "orderId")
-    VALUES ($1, $2, $3)
-    RETURNING *
-    `, values)
-    .then((newRow) => console.log(`NEW PRODUCT FOR ORDER: ${newRow.rows[0].productId}`))
-    .catch((err) => console.log('ERROR ADDING ORDER PRODUCT', err, 'values: ', values));
+  // use pool connection clients to reduce connection timeout errors from a full pool
+  await Pool.connect()
+    .then(async (client) => {
+      await client.query(`
+        INSERT INTO "orderProducts"("productId", "productQty", "orderId")
+        VALUES ($1, $2, $3)
+        RETURNING *
+        `, values)
+        .then((newRow) => console.log(`NEW PRODUCT FOR ORDER: ${newRow.rows[0].orderId}`))
+        .finally(client.release());
+    })
+    .catch((err) => console.log('ERROR ADDING PRODUCT TO ORDER', err, '\n\n VALUES ARE \n', values));
 }
 
-// seed with a random number of inputs
-// const random = Math.random() * 25;
-// console.log(`Seeding ${Math.floor(random) + 1} values`);
 console.log('Seeding customerOrders');
 
-// // seems to be fixed:
-// // EXPECT ERRORS HERE as js will create a lot of pool connections faster than they can be handled
-// create the 25 customers in the database
+// create the 100 products in random orders in the database
 for (let i = 0; i < 100; i++) {
   seedCustomerOrders();
 }
-
-// this isn't logging in the right spot because of async activity...
-// TODO I can fix this with a promise all that's fed the seed function...
-// TODO ...there are more important battles right now
-// Note: this actually isn't too far off because seed runs asyncronously and each
-// query is being awaited separately
-// Pool.query('SELECT COUNT(*) FROM customers')
-//   .then((result) => console.log('The total customer count is', result.rows[0].count));

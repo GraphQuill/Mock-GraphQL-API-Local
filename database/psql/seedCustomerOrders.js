@@ -28,11 +28,3 @@ console.log('Seeding customerOrders');
 for (let i = 0; i < 25; i++) {
   seedCustomerOrders();
 }
-
-// this isn't logging in the right spot because of async activity...
-// TODO I can fix this with a promise all that's fed the seed function...
-// TODO ...there are more important battles right now
-// Note: this actually isn't too far off because seed runs asyncronously and each
-// query is being awaited separately
-// Pool.query('SELECT COUNT(*) FROM customers')
-//   .then((result) => console.log('The total customer count is', result.rows[0].count));
