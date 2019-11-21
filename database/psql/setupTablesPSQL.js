@@ -1,6 +1,5 @@
 const Pool = require('./dbConnection');
 
-// note: sql queries cannot have trailing commas for the last argument (like in js)
 // function that will create each table and then add necessary constraints
 async function setup() {
   // setup the customer table
@@ -39,7 +38,7 @@ async function setup() {
         .finally(() => client.release());
     });
 
-
+  // setup customers to orders join table
   await Pool.connect()
     .then(async (client) => {
       client.query(`
@@ -51,7 +50,7 @@ async function setup() {
         .finally(() => client.release());
     });
 
-
+  // create orrders to products join table (also stores quantities)
   await Pool.connect()
     .then(async (client) => {
       await client.query(`
@@ -65,6 +64,7 @@ async function setup() {
         .finally(() => client.release());
     });
 
+  // create table for all products
   await Pool.connect()
     .then(async (client) => {
       await client.query(`
@@ -79,6 +79,7 @@ async function setup() {
         .finally(() => client.release());
     });
 
+  // create table for all warehouses
   await Pool.connect()
     .then(async (client) => {
       await client.query(`
@@ -91,6 +92,7 @@ async function setup() {
         .finally(() => client.release());
     });
 
+  // create table for warehouseInventories
   await Pool.connect()
     .then(async (client) => {
       await client.query(`
@@ -105,9 +107,8 @@ async function setup() {
     });
 
 
+  // ! Add foregin key constraints
   // add foregin key constraint, this will throw an error if the previous queries are not
-  // awaited because the tables won't exist yet
-  console.log('setting up addresses_customer constraint...');
   await Pool.connect()
     .then(async (client) => {
       await client.query(`
