@@ -6,6 +6,7 @@
 
 module.exports = {
   Query: {
+    // query to look up data on an individual warehouse
     warehouse: (parent, args, context) => {
       const query = 'SELECT * FROM warehouses WHERE "warehouseId" = $1 LIMIT 1';
       const values = [args.warehouseId];
@@ -13,6 +14,7 @@ module.exports = {
         .then((data) => data.rows[0])
         .catch((err) => console.log('ERROR LOOKING UP WAREHOUSE', err));
     },
+    // query to return data on all warehouses
     warehouses: (parent, args, context) => {
       const query = 'SELECT * FROM warehouses';
       return context.psqlPool.query(query)
@@ -21,6 +23,7 @@ module.exports = {
     },
   },
   Mutation: {
+    // mutation to add a warehouse to the database
     addWarehouse: (parent, args, context) => {
       const query = 'INSERT INTO warehouses (name, "addressId") VALUES ($1, $2) RETURNING *';
       const values = [args.name, args.addressId];
@@ -34,6 +37,7 @@ module.exports = {
           .catch((err) => console.log('ERROR INSERTING WAREHOUSE', err)))
         .catch((err) => console.log('ERROR CONNECTING WHILE ADDING WAREHOUSE', err));
     },
+    // mutation to update details of a warehouse
     updateWarehouse: (parent, args, context) => {
       let query = 'UPDATE warehouses SET ';
       const values = [args.warehouseId];
@@ -59,6 +63,7 @@ module.exports = {
           .catch((err) => console.log('ERROR UPDATING WAREHOUSE', err)))
         .catch((err) => console.log('ERROR CONNECTING WHILE UPDATING WAREHOUSE', err));
     },
+    // mutation to delete a warehouse from the database
     deleteWarehouse: (parent, args, context) => {
       const query = 'DELETE FROM warehouses WHERE "warehouseId"=$1 RETURNING *';
       const values = [args.warehouseId];
@@ -73,6 +78,8 @@ module.exports = {
         .catch((err) => console.log('ERROR CONNECTING WHILE DELETING WAREHOUSE', err));
     },
   },
+
+  // type resolver for nested type: Address
   Warehouse: {
     address: (parent, args, context) => {
       const query = 'SELECT * FROM addresses WHERE id=$1 LIMIT 1';

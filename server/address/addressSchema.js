@@ -60,5 +60,7 @@ const Address = `
   }
   `;
 
+// return a thunk so hoisting can handle unordered schema imports in the schema.js file
+
 // The address and base schemas are exported together because the address extends the base schema
 module.exports = () => [Address, Base];

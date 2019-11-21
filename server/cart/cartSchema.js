@@ -34,4 +34,5 @@ const Cart = `
   }
   `;
 
+// return a thunk so hoisting can handle unordered schema imports in the schema.js file
 module.exports = () => [Cart, Base];

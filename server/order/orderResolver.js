@@ -37,7 +37,6 @@ module.exports = {
       // declare client outside of try block to enable calling release() in catch block
       let client;
       // wrapping all async in one try block
-      // TODO: is there a better way to do this?
       try {
         // assign client to awaited returned value of invoking connect on psqlPool
         client = await context.psqlPool.connect();
@@ -55,7 +54,6 @@ module.exports = {
             // insert into orderProducts for each product
             return client.query(orderProductQuery, values)
               // still using then here because it allows for more specific error messaging and isn't too nested
-              // TODO: is this even necessary?
               .then((orderProductData) => {
                 console.log(orderProductData.rows);
               })
@@ -75,6 +73,8 @@ module.exports = {
       return null;
     },
   },
+
+  // type resolver for nested types: Customer and Products
   Order: {
     customer: (parent, args, context) => {
       const query = 'SELECT * FROM customers WHERE id = $1 LIMIT 1';

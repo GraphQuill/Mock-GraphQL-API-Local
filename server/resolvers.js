@@ -46,8 +46,8 @@ const {
   Mutation: CartMutation,
 } = require('./cart/cartResolver');
 
-// export all of those combined (Query and Mutation are standard & build into gql, Customer
-// is a type resolver)
+// export all of those combined (Query and Mutation are standard & built into GraphQL,
+//  Customer, Order and Warehouse are type resolvers)
 module.exports = {
   Query: {
     ...CustomerQuery,
